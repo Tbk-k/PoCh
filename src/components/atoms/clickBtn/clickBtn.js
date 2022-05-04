@@ -80,7 +80,7 @@ const ClickBtn = () => {
   };
 
   return (
-    <Wrapper to="/red" ref={wrapperRef} onClick={clickHandler}>
+    <Wrapper to="/lesson-types" ref={wrapperRef} onClick={clickHandler}>
       <span>Kliknij aby przejść</span>
       <Mouse ref={mouseRef}>
         <span />

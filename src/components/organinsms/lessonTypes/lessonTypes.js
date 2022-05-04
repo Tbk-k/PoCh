@@ -51,7 +51,6 @@ const LessonTypes = () => {
       case 'right':
         setActiveCard(true);
     }
-    alert(activeCard);
     tl2.current.tweenFromTo('mouseEnter', 'mouseLeave');
   };
   const mouseLeaveHandler = () => {
@@ -69,7 +68,7 @@ const LessonTypes = () => {
         <InnerWrapper>
           <h2 ref={headingRef}>Jakiego rodzaju zajęć szukasz ?</h2>
           <TypeList onClick={clickHandler}>
-            <StyledLink to="/blue">
+            <StyledLink to="/contact-form">
               <TypeItem ref={leftCardRef} id="left" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
                 <h3>Online</h3>
                 <StyledDiv>
@@ -81,7 +80,7 @@ const LessonTypes = () => {
                 <StyledBtn>wybierz</StyledBtn>
               </TypeItem>
             </StyledLink>
-            <StyledLink to="/blue">
+            <StyledLink to="/contact-form">
               <TypeItem ref={rightCardRef} id="right" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
                 <h3>U ucznia</h3>
                 <StyledDiv>
