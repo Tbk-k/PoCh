@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import Blue from 'components/organinsms/blue';
 import Curtain from 'components/atoms/curtain/curtain';
 import LessonTypes from 'components/organinsms/lessonTypes/lessonTypes';
+import ContactForm from 'components/organinsms/contactForm/contactForm';
 
 const Wrapper = styled.div`
   background-color: ${({ theme }) => theme.colors.teal};
@@ -30,8 +31,9 @@ const MainTemplate = () => {
         <PageCard>
           <Routes>
             <Route path="/" element={<StartPage />} />
-            <Route path="/red" element={<LessonTypes />} />
-            <Route path="/blue" element={<Blue />} />
+            <Route path="/lesson-types" element={<LessonTypes />} />
+            <Route path="/contact-form" element={<ContactForm />} />
+            <Route path="/thanks" element={<Blue />} />
           </Routes>
         </PageCard>
       </Wrapper>

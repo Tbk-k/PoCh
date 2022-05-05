@@ -46,9 +46,9 @@ const Mouse = styled.div`
   span:last-of-type {
     position: absolute;
     background-color: ${({ theme }) => theme.colors.grey};
-    width: 10px;
+    width: 5px;
     height: 10px;
-    border-radius: 50%;
+    border-radius: 100px;
     top: 10px;
     left: 50%;
     transform: translateX(-50%);
@@ -80,7 +80,7 @@ const ClickBtn = () => {
   };
 
   return (
-    <Wrapper to="/red" ref={wrapperRef} onClick={clickHandler}>
+    <Wrapper to="/lesson-types" ref={wrapperRef} onClick={clickHandler}>
       <span>Kliknij aby przejść</span>
       <Mouse ref={mouseRef}>
         <span />
