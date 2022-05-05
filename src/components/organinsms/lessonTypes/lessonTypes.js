@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import OnlineImg from 'assetes/img/image.png';
 import HomeImg from 'assetes/img/image02.png';
@@ -10,82 +10,87 @@ import AtomIcon from 'components/atoms/atomIcon/atomIcon';
 const LessonTypes = () => {
   const { setCurtainState } = useContext(MainContext);
   const tl = useRef(null);
-  const tl2 = useRef(null);
   const leftCardRef = useRef(null);
   const rightCardRef = useRef(null);
+  const leftLinkRef = useRef(null);
+  const rightLinkRef = useRef(null);
   const headingRef = useRef(null);
-  const [activeCard, setActiveCard] = useState();
 
   React.useEffect(() => {
     tl.current = gsap.timeline();
     if (tl.current) {
       tl.current
-        .set([leftCardRef.current, leftCardRef.current.children, rightCardRef.current, rightCardRef.current.children, headingRef.current], {
+        .set([leftCardRef.current.children, rightCardRef.current.children, headingRef.current], {
           opacity: 0,
         })
-        .fromTo([leftCardRef.current, rightCardRef.current], { yPercent: 100 }, { yPercent: 0, opacity: 1, duration: 1, delay: 1.5 })
+        .fromTo([leftCardRef.current, rightCardRef.current], { yPercent: 100 }, { yPercent: 0, duration: 1, delay: 1.5 })
         .to(headingRef.current, { opacity: 1, duration: 1 })
-        .to([leftCardRef.current.children, rightCardRef.current.children], { opacity: 1, duration: 1.5, stagger: 0.05 })
-        .addLabel('point')
-        .to(rightCardRef.current, {
-          opacity: 0.5,
-          duration: 0.5,
-        });
+        .to([leftCardRef.current.children, rightCardRef.current.children], { opacity: 1, duration: 1.5, stagger: 0.05 });
+      tl.current.addPause();
     }
   }, []);
-
-  React.useEffect(() => {
-    tl2.current = gsap.timeline({ paused: true });
-    tl2.current
-      .addLabel('mouseEnter')
-      .to(activeCard ? rightCardRef.current : leftCardRef.current, { opacity: 1, duration: 0.5 })
-      .addLabel('mouseLeave')
-      .to([rightCardRef.current, leftCardRef.current], { opacity: 0.5, duration: 1.5 });
-  }, []);
-
-  const mouseEnterHandler = (e) => {
-    switch (e.target.parentNode.id) {
-      case 'left':
-        setActiveCard(false);
-        break;
-      case 'right':
-        setActiveCard(true);
-    }
-    tl2.current.tweenFromTo('mouseEnter', 'mouseLeave');
-  };
-  const mouseLeaveHandler = () => {
-    tl2.current.tweenFromTo('mouseLeave', 'end');
-  };
 
   const clickHandler = () => {
     setCurtainState(true);
+  };
+
+  const mouseEnterHandler = (e) => {
+    leftLinkRef.current.classList.remove('active', 'neutral', 'hidden');
+    rightLinkRef.current.classList.remove('active', 'neutral', 'hidden');
+    switch (e.target.id) {
+      case 'right':
+        leftLinkRef.current.classList.add('hidden');
+        rightLinkRef.current.classList.add('active');
+        break;
+      case 'left':
+        leftLinkRef.current.classList.add('active');
+        rightLinkRef.current.classList.add('hidden');
+        break;
+    }
+  };
+
+  const mouseLeaveHandler = () => {
+    leftLinkRef.current.classList.remove('active', 'hidden');
+    rightLinkRef.current.classList.remove('active', 'hidden');
+    leftLinkRef.current.classList.add('neutral');
+    rightLinkRef.current.classList.add('neutral');
   };
 
   return (
     <>
       <AtomIcon />
       <Wrapper>
-        <InnerWrapper>
+        <InnerWrapper id="neutral">
           <h2 ref={headingRef}>Jakiego rodzaju zajęć szukasz ?</h2>
           <TypeList onClick={clickHandler}>
-            <StyledLink to="/contact-form">
-              <TypeItem ref={leftCardRef} id="left" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
+            <StyledLink to="/contact-form" ref={leftLinkRef}>
+              <TypeItem ref={leftCardRef} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler} className="neutral">
+                <span id="left" />
                 <h3>Online</h3>
                 <StyledDiv>
                   <p>
-                    Preferowana przeze mnie forma. W trakcie zajęć wykorzystuje <span>online whiteboard </span>co niesamowicie ułatwia współpracę.
+                    Preferowana przeze mnie forma. W trakcie zajęć wykorzystuje
+                    <u>
+                      <b>online whiteboard </b>
+                    </u>
+                    co niesamowicie ułatwia współpracę.
                   </p>
                 </StyledDiv>
                 <img src={OnlineImg} alt="" />
                 <StyledBtn>wybierz</StyledBtn>
               </TypeItem>
             </StyledLink>
-            <StyledLink to="/contact-form">
-              <TypeItem ref={rightCardRef} id="right" onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
+            <StyledLink to="/contact-form" ref={rightLinkRef} className="neutral">
+              <TypeItem ref={rightCardRef} onMouseEnter={mouseEnterHandler} onMouseLeave={mouseLeaveHandler}>
+                <span id="right" />
                 <h3>U ucznia</h3>
                 <StyledDiv>
                   <p>
-                    Preferowana przeze mnie forma. W trakcie zajęć wykorzystuje <span>online whiteboard </span>co niesamowicie ułatwia współpracę.
+                    Preferowana przeze mnie forma. W trakcie zajęć wykorzystuje
+                    <u>
+                      <b>online whiteboard </b>
+                    </u>
+                    co niesamowicie ułatwia współpracę.
                   </p>
                 </StyledDiv>
                 <img src={HomeImg} alt="" />

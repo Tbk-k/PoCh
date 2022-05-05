@@ -41,6 +41,16 @@ export const StyledLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: opacity 0.5s;
+  &.active {
+    opacity: 1;
+  }
+  &.hidden {
+    opacity: 0.15;
+  }
+  &.neutral {
+    opacity: 0.5;
+  }
 `;
 
 export const TypeItem = styled.li`
@@ -56,6 +66,15 @@ export const TypeItem = styled.li`
   display: grid;
   grid-template-areas: 'heading' 'text' 'image' 'button';
   grid-template-rows: 50px 1fr 130px 60px;
+  position: relative;
+  span {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0%;
+    z-index: 10;
+    background-color: transparent;
+  }
   &::-webkit-scrollbar {
     display: none;
   }
@@ -81,7 +100,7 @@ export const TypeItem = styled.li`
     h3 {
       font-size: ${({ theme }) => theme.font.size.pLarge};
     }
-  } ;
+  }
 `;
 
 export const StyledBtn = styled.button`
@@ -107,10 +126,7 @@ export const StyledDiv = styled.div`
   align-self: center;
   font-size: ${({ theme }) => theme.font.size.p};
   text-align: center;
-  span {
-    font-weight: bold;
-    text-decoration: underline;
-  }
+
   ${({ theme }) => theme.mq.desktop} {
     font-size: ${({ theme }) => theme.font.size.pLarge};
   } ;
